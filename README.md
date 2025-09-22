@@ -1,3 +1,7 @@
-# HomeFix_Jasa_Pemesanan_Servis_Rumah_dan_Perbaikan
-berikut adalah program untuk HomeFix_Jasa_Pemesanan_Servis_Rumah_dan_Perbaikan menggunakan json, html, bootstrap, vue, react untuk pengetest an menggunakan cypress ataupun menggunakan postman sedang dalam pengerjaan sudah mencapai 30% dalam pengerjaan 14 jam dengan target selesai 1 minggu (boleh di copas jika berguna)
-jika terdapat perbaikan akan langsung di upload
+HomeFix_Jasa_Pemesanan_Servis_Rumah_dan_Perbaikan adalah sebuah aplikasi berbasis web yang dirancang untuk mempermudah proses pemesanan jasa perbaikan rumah. Aplikasi ini memungkinkan pengguna mencari, memesan, dan mengatur layanan perbaikan secara lebih cepat dan efisien. Dengan tampilan antarmuka yang modern dan user-friendly, platform ini diharapkan mampu memberikan pengalaman terbaik bagi pengguna dalam mengakses berbagai jenis layanan rumah tangga.
+
+Dalam pengembangannya, project ini memanfaatkan kombinasi teknologi seperti JSON, HTML, Bootstrap, Vue, dan React. Setiap teknologi dipilih agar sistem dapat berjalan responsif, memiliki struktur data yang rapi, serta mendukung interaktivitas yang tinggi. Vue dan React digunakan untuk membangun komponen front-end dinamis, sementara Bootstrap memastikan tampilan tetap konsisten dan mobile-friendly.
+
+Untuk memastikan kualitas sistem, pengujian dilakukan menggunakan Cypress sebagai automated testing tool, serta Postman untuk pengujian API. Dengan metode ini, aplikasi diuji baik dari sisi fungsionalitas front-end maupun komunikasi data melalui API, sehingga reliabilitas dan performa sistem dapat terjaga. Proses pengembangan saat ini telah mencapai sekitar 30% dengan estimasi waktu pengerjaan selama 14 jam, dan ditargetkan selesai dalam kurun waktu satu minggu.
+
+Setiap pembaruan maupun perbaikan akan langsung diunggah agar progres dapat dipantau secara berkelanjutan. Dengan pendekatan ini, HomeFix tidak hanya berfungsi sebagai aplikasi pemesanan servis rumah biasa, tetapi juga sebagai platform digital yang terus dikembangkan agar dapat memenuhi kebutuhan pengguna dan beradaptasi dengan perkembangan teknologi di masa depan.
