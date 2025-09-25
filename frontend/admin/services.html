@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Layanan - HomeFix Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-md-3 col-lg-2 sidebar">
+        <div class="p-3">
+          <h4 class="text-center">HomeFix Admin</h4>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#"><i class="fas fa-tools me-2"></i> Kelola Layanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="orders.html"><i class="fas fa-shopping-cart me-2"></i> Kelola Pesanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="users.html"><i class="fas fa-users me-2"></i> Kelola Pengguna</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reports.html"><i class="fas fa-chart-bar me-2"></i> Laporan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"><i class="fas fa-home me-2"></i> Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="col-md-9 col-lg-10 main-content">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
+          <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Kelola Layanan</span>
+            <button class="btn btn-primary" onclick="showAddServiceModal()">Tambah Layanan</button>
+          </div>
+        </nav>
+
+        <!-- Services Table -->
+        <div class="card">
+          <div class="card-header">
+            <h5>Daftar Layanan</h5>
+          </div>
+          <div class="card-body">
+            <div id="servicesTableContainer">
+              <!-- Services table will be loaded dynamically -->
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add Service Modal -->
+  <div class="modal fade" id="addServiceModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah Layanan Baru</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addServiceForm">
+            <div class="mb-3">
+              <label for="serviceName" class="form-label">Nama Layanan</label>
+              <input type="text" class="form-control" id="serviceName" required>
+            </div>
+            <div class="mb-3">
+              <label for="serviceDescription" class="form-label">Deskripsi</label>
+              <textarea class="form-control" id="serviceDescription" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="servicePrice" class="form-label">Harga</label>
+              <input type="text" class="form-control" id="servicePrice" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary" onclick="addService()">Tambah</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Load services from API
+    async function loadServices() {
+      try {
+        const response = await fetch('http://localhost:3000/api/services');
+        const services = await response.json();
+
+        const container = document.getElementById('servicesTableContainer');
+        container.innerHTML = createServicesTable(services);
+      } catch (error) {
+        console.error('Error loading services:', error);
+        document.getElementById('servicesTableContainer').innerHTML =
+          '<div class="alert alert-danger">Error loading services. Please try again later.</div>';
+      }
+    }
+
+    function createServicesTable(services) {
+      let tableHtml = `
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Layanan</th>
+              <th>Deskripsi</th>
+              <th>Harga</th>
+              <th>Kategori</th>
+              <th>Durasi</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      services.forEach(service => {
+        tableHtml += `
+          <tr>
+            <td>${service.id}</td>
+            <td>${service.name}</td>
+            <td>${service.description}</td>
+            <td>${service.price}</td>
+            <td><span class="badge bg-primary">${service.category}</span></td>
+            <td>${service.duration}</td>
+            <td><span class="badge bg-${service.status === 'active' ? 'success' : 'danger'}">${service.status === 'active' ? 'Aktif' : 'Tidak Aktif'}</span></td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="editService('${service.id}')">Edit</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteService('${service.id}')">Hapus</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      tableHtml += '</tbody></table>';
+      return tableHtml;
+    }
+
+    function showAddServiceModal() {
+      new bootstrap.Modal(document.getElementById('addServiceModal')).show();
+    }
+
+    async function addService() {
+      const name = document.getElementById('serviceName').value;
+      const description = document.getElementById('serviceDescription').value;
+      const price = document.getElementById('servicePrice').value;
+
+      if (name && description && price) {
+        try {
+          const response = await fetch('http://localhost:3000/api/services', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name,
+              description,
+              price,
+              category: 'General',
+              duration: '1-2 jam',
+              status: 'active',
+              image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&h=300&fit=crop',
+              features: ['Layanan berkualitas', 'Harga terjangkau']
+            }),
+          });
+
+          if (response.ok) {
+            alert(`Layanan "${name}" berhasil ditambahkan!`);
+            bootstrap.Modal.getInstance(document.getElementById('addServiceModal')).hide();
+            document.getElementById('addServiceForm').reset();
+            loadServices(); // Reload the table
+          } else {
+            alert('Gagal menambahkan layanan. Silakan coba lagi.');
+          }
+        } catch (error) {
+          console.error('Error adding service:', error);
+          alert('Error adding service. Please try again.');
+        }
+      } else {
+        alert('Silakan isi semua field.');
+      }
+    }
+
+    async function editService(serviceId) {
+      try {
+        const response = await fetch(`http://localhost:3000/api/services/${serviceId}`);
+        const service = await response.json();
+
+        // Populate form with existing data
+        document.getElementById('serviceName').value = service.name;
+        document.getElementById('serviceDescription').value = service.description;
+        document.getElementById('servicePrice').value = service.price;
+
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('addServiceModal'));
+        modal.show();
+
+        // Change modal title and button text
+        document.querySelector('#addServiceModal .modal-title').textContent = 'Edit Layanan';
+        document.querySelector('#addServiceModal .btn-primary').textContent = 'Update';
+        document.querySelector('#addServiceModal .btn-primary').onclick = () => updateService(serviceId);
+      } catch (error) {
+        console.error('Error fetching service:', error);
+        alert('Error fetching service details.');
+      }
+    }
+
+    async function updateService(serviceId) {
+      const name = document.getElementById('serviceName').value;
+      const description = document.getElementById('serviceDescription').value;
+      const price = document.getElementById('servicePrice').value;
+
+      if (name && description && price) {
+        try {
+          const response = await fetch(`http://localhost:3000/api/services/${serviceId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name,
+              description,
+              price,
+            }),
+          });
+
+          if (response.ok) {
+            alert(`Layanan "${name}" berhasil diupdate!`);
+            bootstrap.Modal.getInstance(document.getElementById('addServiceModal')).hide();
+            document.getElementById('addServiceForm').reset();
+            loadServices(); // Reload the table
+          } else {
+            alert('Gagal mengupdate layanan. Silakan coba lagi.');
+          }
+        } catch (error) {
+          console.error('Error updating service:', error);
+          alert('Error updating service. Please try again.');
+        }
+      } else {
+        alert('Silakan isi semua field.');
+      }
+    }
+
+    async function deleteService(serviceId) {
+      if (confirm(`Apakah Anda yakin ingin menghapus layanan ${serviceId}?`)) {
+        try {
+          const response = await fetch(`http://localhost:3000/api/services/${serviceId}`, {
+            method: 'DELETE',
+          });
+
+          if (response.ok) {
+            alert(`Layanan ${serviceId} berhasil dihapus!`);
+            loadServices(); // Reload the table
+          } else {
+            alert('Gagal menghapus layanan. Silakan coba lagi.');
+          }
+        } catch (error) {
+          console.error('Error deleting service:', error);
+          alert('Error deleting service. Please try again.');
+        }
+      }
+    }
+
+    function logout() {
+      if (confirm('Apakah Anda yakin ingin logout?')) {
+        window.location.href = '../index.html';
+      }
+    }
+
+    // Load services when page loads
+    document.addEventListener('DOMContentLoaded', loadServices);
+  </script>
+</body>
+</html>

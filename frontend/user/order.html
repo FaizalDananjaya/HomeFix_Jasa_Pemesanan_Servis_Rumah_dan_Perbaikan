@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pesan Layanan - HomeFix</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-md-3 col-lg-2 sidebar">
+        <div class="p-3">
+          <h4 class="text-center">HomeFix</h4>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="services.html"><i class="fas fa-tools me-2"></i> Layanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#"><i class="fas fa-shopping-cart me-2"></i> Pesanan Saya</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="history.html"><i class="fas fa-history me-2"></i> Riwayat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html"><i class="fas fa-user me-2"></i> Profil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"><i class="fas fa-home me-2"></i> Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="col-md-9 col-lg-10 main-content">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
+          <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Pesan Layanan</span>
+          </div>
+        </nav>
+
+        <!-- Order Form -->
+        <div class="order-form">
+          <h2 class="mb-4">Form Pemesanan</h2>
+          <form id="orderForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="service" class="form-label">Layanan</label>
+                  <select class="form-control" id="service" required>
+                    <option value="">Pilih Layanan</option>
+                    <option value="Perbaikan Rumah">Perbaikan Rumah</option>
+                    <option value="Renovasi Interior">Renovasi Interior</option>
+                    <option value="Perawatan Taman">Perawatan Taman</option>
+                    <option value="Pembersihan Rumah">Pembersihan Rumah</option>
+                    <option value="Instalasi Listrik">Instalasi Listrik</option>
+                    <option value="Perbaikan Plumbing">Perbaikan Plumbing</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="date" class="form-label">Tanggal Pelayanan</label>
+                  <input type="date" class="form-control" id="date" required>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Alamat Lengkap</label>
+              <textarea class="form-control" id="address" rows="3" required></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Nama Lengkap</label>
+                  <input type="text" class="form-control" id="name" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="phone" class="form-label">Nomor Telepon</label>
+                  <input type="tel" class="form-control" id="phone" required>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Deskripsi Masalah</label>
+              <textarea class="form-control" id="description" rows="4" placeholder="Jelaskan masalah yang ingin diperbaiki..."></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="estimatedCost" class="form-label">Estimasi Biaya</label>
+              <input type="text" class="form-control" id="estimatedCost" readonly>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" onclick="goBack()">Kembali</button>
+              <button type="submit" class="btn btn-primary">Lanjutkan ke Pembayaran</button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Get service from URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const serviceParam = urlParams.get('service');
+    if (serviceParam) {
+      document.getElementById('service').value = serviceParam;
+      updateEstimatedCost();
+    }
+
+    document.getElementById('service').addEventListener('change', updateEstimatedCost);
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Simulate order submission
+      alert('Pesanan berhasil dibuat! Mengarahkan ke pembayaran...');
+      window.location.href = '../../.dist/index.php'; // Redirect to payment gateway
+    });
+
+    function updateEstimatedCost() {
+      const service = document.getElementById('service').value;
+      const costMap = {
+        'Perbaikan Rumah': 'Rp 150.000 - Rp 500.000',
+        'Renovasi Interior': 'Rp 300.000 - Rp 1.000.000',
+        'Perawatan Taman': 'Rp 100.000 - Rp 300.000',
+        'Pembersihan Rumah': 'Rp 200.000 - Rp 400.000',
+        'Instalasi Listrik': 'Rp 250.000 - Rp 600.000',
+        'Perbaikan Plumbing': 'Rp 180.000 - Rp 450.000'
+      };
+      document.getElementById('estimatedCost').value = costMap[service] || '';
+    }
+
+    function goBack() {
+      window.location.href = 'services.html';
+    }
+
+    function logout() {
+      if (confirm('Apakah Anda yakin ingin logout?')) {
+        window.location.href = '../index.html';
+      }
+    }
+  </script>
+</body>
+</html>

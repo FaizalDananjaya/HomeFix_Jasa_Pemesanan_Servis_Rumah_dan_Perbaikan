@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan - HomeFix Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <nav class="col-md-3 col-lg-2 sidebar">
+        <div class="p-3">
+          <h4 class="text-center">HomeFix Admin</h4>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard.html"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="services.html"><i class="fas fa-tools me-2"></i> Kelola Layanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="orders.html"><i class="fas fa-shopping-cart me-2"></i> Kelola Pesanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="users.html"><i class="fas fa-users me-2"></i> Kelola Pengguna</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#"><i class="fas fa-chart-bar me-2"></i> Laporan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"><i class="fas fa-home me-2"></i> Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="col-md-9 col-lg-10 main-content">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
+          <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">Laporan</span>
+            <div class="btn-group">
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Periode
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onclick="setPeriod('week')">Minggu Ini</a></li>
+                <li><a class="dropdown-item" href="#" onclick="setPeriod('month')">Bulan Ini</a></li>
+                <li><a class="dropdown-item" href="#" onclick="setPeriod('quarter')">Kuartal Ini</a></li>
+                <li><a class="dropdown-item" href="#" onclick="setPeriod('year')">Tahun Ini</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Summary Cards -->
+        <div class="row">
+          <div class="col-md-3 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <i class="fas fa-shopping-cart card-icon fa-2x text-primary"></i>
+                <h5 class="card-title">Total Pesanan</h5>
+                <p class="card-text">24</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <i class="fas fa-dollar-sign card-icon fa-2x text-success"></i>
+                <h5 class="card-title">Total Pendapatan</h5>
+                <p class="card-text">Rp 12.500.000</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <i class="fas fa-users card-icon fa-2x text-info"></i>
+                <h5 class="card-title">Pengguna Baru</h5>
+                <p class="card-text">15</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <i class="fas fa-star card-icon fa-2x text-warning"></i>
+                <h5 class="card-title">Rating Rata-rata</h5>
+                <p class="card-text">4.5/5</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5>Pesanan per Layanan</h5>
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <canvas id="serviceChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5>Pendapatan per Bulan</h5>
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <canvas id="revenueChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Report -->
+        <div class="card">
+          <div class="card-header">
+            <h5>Laporan Detail</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Bulan</th>
+                  <th>Pesanan</th>
+                  <th>Pendapatan</th>
+                  <th>Pengguna Baru</th>
+                  <th>Layanan Terpopuler</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Oktober 2023</td>
+                  <td>8</td>
+                  <td>Rp 4.200.000</td>
+                  <td>5</td>
+                  <td>Perbaikan Rumah</td>
+                </tr>
+                <tr>
+                  <td>September 2023</td>
+                  <td>10</td>
+                  <td>Rp 5.800.000</td>
+                  <td>7</td>
+                  <td>Renovasi Interior</td>
+                </tr>
+                <tr>
+                  <td>Agustus 2023</td>
+                  <td>6</td>
+                  <td>Rp 2.500.000</td>
+                  <td>3</td>
+                  <td>Perawatan Taman</td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-primary" onclick="exportReport()">Export Laporan</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Initialize charts
+    const serviceCtx = document.getElementById('serviceChart').getContext('2d');
+    const serviceChart = new Chart(serviceCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Perbaikan Rumah', 'Renovasi Interior', 'Perawatan Taman', 'Lainnya'],
+        datasets: [{
+          data: [8, 6, 5, 5],
+          backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#f5576c']
+        }]
+      }
+    });
+
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    const revenueChart = new Chart(revenueCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Pendapatan',
+          data: [12000000, 19000000, 15000000, 25000000, 22000000, 30000000],
+          borderColor: '#667eea',
+          backgroundColor: 'rgba(102, 126, 234, 0.1)',
+          fill: true
+        }]
+      }
+    });
+
+    function setPeriod(period) {
+      alert(`Mengatur periode laporan: ${period}`);
+      // Implement period setting
+    }
+
+    function exportReport() {
+      alert('Mengekspor laporan...');
+      // Implement export functionality
+    }
+
+    function logout() {
+      if (confirm('Apakah Anda yakin ingin logout?')) {
+        window.location.href = '../index.html';
+      }
+    }
+  </script>
+</body>
+</html>

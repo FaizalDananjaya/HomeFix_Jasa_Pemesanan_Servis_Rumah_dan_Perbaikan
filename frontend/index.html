@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomeFix - Jasa Pemesanan Servis Rumah dan Perbaikan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">HomeFix</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Layanan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">Tentang Kami</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Kontak</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="user/login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin/login.html">Admin</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <h1>Selamat Datang di HomeFix</h1>
+      <p>Jasa pemesanan servis rumah dan perbaikan terpercaya untuk kebutuhan Anda</p>
+      <a href="#services" class="btn btn-primary">Lihat Layanan Kami</a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <div class="container">
+      <h2 class="text-center mb-5">Layanan Kami</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card service-card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-tools service-icon"></i>
+              <h5 class="card-title">Perbaikan Rumah</h5>
+              <p class="card-text">Layanan perbaikan rumah tangga seperti plumbing, listrik, dan konstruksi.</p>
+              <a href="user/services.html" class="btn btn-outline-primary">Pesan Sekarang</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card service-card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-paint-brush service-icon"></i>
+              <h5 class="card-title">Renovasi Interior</h5>
+              <p class="card-text">Renovasi dan dekorasi interior untuk membuat rumah Anda lebih indah.</p>
+              <a href="user/services.html" class="btn btn-outline-primary">Pesan Sekarang</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card service-card h-100">
+            <div class="card-body text-center">
+              <i class="fas fa-leaf service-icon"></i>
+              <h5 class="card-title">Perawatan Taman</h5>
+              <p class="card-text">Layanan perawatan taman, landscaping, dan kebersihan outdoor.</p>
+              <a href="user/services.html" class="btn btn-outline-primary">Pesan Sekarang</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-light py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">Hubungi Kami</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h4>Alamat</h4>
+          <p>Jl. Melati Indah Raya No. 45, Kebayoran Baru, Jakarta Selatan, DKI Jakarta 12120</p>
+          <h4>Telepon</h4>
+          <p>+628112940563</p>
+          <h4>Email</h4>
+          <p>contact@homeguard-services.com</p>
+        </div>
+        <div class="col-md-6">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Nama</label>
+              <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Pesan</label>
+              <textarea class="form-control" id="message" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2023 HomeFix. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Add animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
