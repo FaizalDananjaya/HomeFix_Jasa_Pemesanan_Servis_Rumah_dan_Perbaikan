@@ -2,7 +2,7 @@
 
 # HomeFix – Jasa Pemesanan Servis Rumah dan Perbaikan
 
-**HomeFix** adalah aplikasi berbasis web yang dirancang untuk mempermudah pengguna dalam mencari, memesan, dan mengatur layanan perbaikan rumah secara cepat, efisien, dan terorganisir. Dengan antarmuka modern dan ramah pengguna, aplikasi ini diharapkan menjadi solusi digital praktis bagi masyarakat yang membutuhkan berbagai jenis layanan rumah tangga, mulai dari perbaikan kecil hingga servis yang lebih kompleks.
+HomeFix adalah aplikasi berbasis web yang dirancang untuk mempermudah pengguna dalam mencari, memesan, dan mengatur layanan perbaikan rumah secara cepat, efisien, dan terorganisir. Dengan antarmuka modern dan ramah pengguna, aplikasi ini diharapkan menjadi solusi digital praktis bagi masyarakat yang membutuhkan berbagai jenis layanan rumah tangga, mulai dari perbaikan kecil hingga servis yang lebih kompleks.
 
 ---
 
